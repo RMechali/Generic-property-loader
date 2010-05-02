@@ -1,0 +1,3 @@
+bad.formatted.1=Hello {.. {0}
+bad.formatted.2=Hello {a} {0}
+bad.formatted.3=Hello {-1} {0}

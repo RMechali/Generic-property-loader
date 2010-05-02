@@ -1,0 +1,2 @@
+static.message=Je suis un message sans paramètres
+dynamic.message=Je suis un message avec paramètres {0}
