@@ -1,0 +1,5 @@
+# dmloader and related classes messages
+
+bad.formatted.parameter=A dynamic parameter is bad formed in the following message : \"{0}\". Missing character \"{1}\" to complete the declaration. (note that characters \"{2}\" and \"{1}\" are reserved).
+invalid.parameter.index=Any element written between \"{2}\" and \"{1}\" must be a positive integer (problem in the following message : \"{0}\").
+invalid.parameter.count=Invalid number of parameters in the message \"{0}\". (Number of awaited parameters : {1}).

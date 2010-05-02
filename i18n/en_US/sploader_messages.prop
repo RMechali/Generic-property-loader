@@ -1,0 +1,22 @@
+# sploader and related classes messages
+
+standard.reader.big.decimal.error=\"{0}\" is not a valid big decimal value.
+standard.reader.boolean.error=\"{0}\" is not a valid boolean value (available values are \"true\" and \"false\").
+standard.reader.character.error=\"{0}\" is not a valid character value (The string length should be 1).
+standard.reader.double.error=\"{0}\" is not a valid double value.
+standard.reader.float.error=\"{0}\" is not a valid float value.
+standard.reader.integer.error=\"{0}\" is not a valid integer value.
+standard.reader.long.error=\"{0}\" is not a valid long value.
+standard.reader.color.error.empty=Invalid color found : \"\". A color should be represented at hexadecimal format - #RRGGBBAA - or at comma separated format - R,G,B,A. It cannot be an empty string. 
+standard.reader.color.error.hexa.missing.attribute=\"{0}\" is not a valid hexadecimal color value. Reason: all the color attributes are not defined (valid hexadecimal color pattern : \"#RRGGBB\" or \"#RRGGBBAA\").
+standard.reader.color.error.hexa.invalid.attribute=\"{0}\" is not a valid hexadecimal color value. Reason: \"{1}\" is not a valid hexadecimal value (valid hexadecimal color pattern : \"#RRGGBB\" or \"#RRGGBBAA\").
+standard.reader.color.error.hexa.too.long=\"{0}\" is not a valid hexadecimal color value. Reason: the value is too long (valid hexadecimal color pattern : \"#RRGGBB\" or \"#RRGGBBAA\").
+standard.reader.color.error.rgba.missing.attributes=\"{0}\" is not a valid RGBA color value. Reason: All the color attributes are not defined (it should look like R,G,B or R,G,B,A)
+standard.reader.color.error.rgba.too.many.attributes=\"{0}\" is not a valid RGBA color value. Reason: Too many attributes found (it should look like R,G,B or R,G,B,A)
+standard.reader.color.error.rgba.invalid.attribute=\"{0}\" is not a valid RGBA color value. Reason: \"{1}\" does not stand for a valid integer value.
+standard.reader.color.error.rgba.invalid.integer.value=\"{0}\" is not a valid RGBA color value. Reason: \"{1}\" is lower than 0 or greater than 255 (color attributes are defined on 0-255).
+standard.reader.font.invalid.path=\"{0}\" is not a valid path for any font file.
+standard.reader.font.file.access.error=The font file at path \"{0}\" cannot be read.
+standard.reader.font.invalid.font.file=The font file at path \"{0}\" is not a valid font file.
+standard.reader.image.invalid.path="\{0}"\ is not a valid path for any image file.
+standard.reader.image.invalid.image.file=The file at path "\{0}\" cannot be read. Is it a one of the supported format? (gif,jpeg and png formats are supported)
