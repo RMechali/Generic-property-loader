@@ -188,7 +188,7 @@ public class BasicResourcesLoader {
 	 *            : key
 	 * @param propertyClass
 	 *            : property class type
-	 * @return - the instance of property
+	 * @return - the property value
 	 * @throws IllegalArgumentException
 	 *             - if the listener is reader is null <br>
 	 *             - if the key is null <br>
@@ -201,7 +201,7 @@ public class BasicResourcesLoader {
 	 *          assignment time.
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> Property<T> getProperty(String key, PropertyReader<T> reader) {
+	public <T> T getProperty(String key, PropertyReader<T> reader) {
 
 		// Test parameters
 		if (reader == null) {
@@ -213,7 +213,7 @@ public class BasicResourcesLoader {
 					+ "- getProperty(): Property key can not be null");
 		}
 
-		Object loadedKeyValue = ResourcesContainer.getPropertyI(key);
+		Property<?> loadedKeyValue = ResourcesContainer.getPropertyI(key);
 
 		if (ResourcesContainer.isUnfoundProperty(loadedKeyValue)) {
 			// A - the property has already been loaded but was not found
@@ -221,8 +221,8 @@ public class BasicResourcesLoader {
 		}
 		// B - the property has correctly been loaded previously
 		if (loadedKeyValue != null) {
-			// send the property at the required type
-			return (Property<T>) loadedKeyValue;
+			// send the property value at the required type
+			return (T) loadedKeyValue.getValue();
 		}
 
 		// C - The property has never been loaded. Find and parse the property
@@ -232,7 +232,7 @@ public class BasicResourcesLoader {
 			// the property has been found, store it
 			ResourcesContainer.addPropertyI(key, basicPropertyValue);
 			// return the property found
-			return basicPropertyValue;
+			return basicPropertyValue.getValue();
 		}
 
 		// D - the property has been parsed but not found, store an item not

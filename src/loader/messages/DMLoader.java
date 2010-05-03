@@ -30,7 +30,6 @@ import loader.error.LoaderErrorAdapter;
 import loader.messages.data.CompoundMessage;
 import loader.messages.data.MessagesReader;
 import loader.messages.error.IDMLoaderErrorListener;
-import container.Property;
 
 /**
  * Default Messages Loader, acting in a way as a resource bundle. Every file you
@@ -148,7 +147,6 @@ public final class DMLoader extends LoaderErrorAdapter {
 	 *             if function parameters are null
 	 */
 	public static String getMessage(String key, Object... messageParameters) {
-		Property<CompoundMessage> property = null;
 
 		// verify parameters
 		if (key == null) {
@@ -163,13 +161,12 @@ public final class DMLoader extends LoaderErrorAdapter {
 		}
 
 		DMLoader instance = getInstance();
-		property = instance.loader.getProperty(key, MessagesReader
-				.getInstance());
+		CompoundMessage messageFormatter = instance.loader.getProperty(key,
+				MessagesReader.getInstance());
 
-		if (property != null) {
+		if (messageFormatter != null) {
 			// the property has been found, try to complete the message with
 			// dynamic parameters
-			CompoundMessage messageFormatter = property.getValue();
 			try {
 				return messageFormatter.formatMessage(messageParameters);
 			} catch (IllegalArgumentException e) {
@@ -194,7 +191,7 @@ public final class DMLoader extends LoaderErrorAdapter {
 	 * @param localeProperty
 	 * @return
 	 */
-	public static <T> Property<T> getLocaleProperty(String key,
+	public static <T> T getLocaleProperty(String key,
 			PropertyReader<T> propertyReader) {
 		DMLoader instance = getInstance();
 		return instance.loader.getProperty(key, propertyReader);

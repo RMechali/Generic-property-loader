@@ -38,7 +38,6 @@ import loader.standard.readers.ImageIconReader;
 import loader.standard.readers.IntegerReader;
 import loader.standard.readers.LongReader;
 import loader.standard.readers.StringReader;
-import container.Property;
 
 /**
  * Standard Property Loader, that uses standard readers and singleton pattern to
@@ -164,52 +163,51 @@ public class SPLoader {
 	 * @see loader.BasicResourcesLoader#getProperty(java.lang.String,
 	 *      loader.PropertyReader)
 	 */
-	public static <T> Property<T> getProperty(String key,
-			PropertyReader<T> reader) {
+	public static <T> T getProperty(String key, PropertyReader<T> reader) {
 		return getLoaderInstance().getProperty(key, reader);
 	}
 
-	public static Property<BigDecimal> getBigDecimal(String key) {
+	public static BigDecimal getBigDecimal(String key) {
 		return getProperty(key, BigDecimalReader.getInstance());
 	}
 
-	public static Property<Boolean> getBoolean(String key) {
+	public static Boolean getBoolean(String key) {
 		return getProperty(key, BooleanReader.getInstance());
 	}
 
-	public static Property<Character> getCharacter(String key) {
+	public static Character getCharacter(String key) {
 		return getProperty(key, CharacterReader.getInstance());
 	}
 
-	public static Property<Color> getColor(String key) {
+	public static Color getColor(String key) {
 		return getProperty(key, ColorReader.getInstance());
 	}
 
-	public static Property<Double> getDouble(String key) {
+	public static Double getDouble(String key) {
 		return getProperty(key, DoubleReader.getInstance());
 	}
 
-	public static Property<Float> getFloat(String key) {
+	public static Float getFloat(String key) {
 		return getProperty(key, FloatReader.getInstance());
 	}
 
-	public static Property<Font> getFont(String key) {
+	public static Font getFont(String key) {
 		return getProperty(key, FontReader.getInstance());
 	}
 
-	public static Property<ImageIcon> getIcon(String key) {
+	public static ImageIcon getIcon(String key) {
 		return getProperty(key, ImageIconReader.getInstance());
 	}
 
-	public static Property<Integer> getInteger(String key) {
+	public static Integer getInteger(String key) {
 		return getProperty(key, IntegerReader.getInstance());
 	}
 
-	public static Property<Long> getLong(String key) {
+	public static Long getLong(String key) {
 		return getProperty(key, LongReader.getInstance());
 	}
 
-	public static Property<String> getString(String key) {
+	public static String getString(String key) {
 		return getProperty(key, StringReader.getInstance());
 	}
 
