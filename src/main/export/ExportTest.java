@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * and GNU Lesser General Public License along with TestsGenericPropertyLoader project.
- * If not, see <http://www.gnu.org/licenses/>.
+ * If not, see <http://www.gnu.org/licenses/.
  **/
 
 package main.export;
@@ -32,7 +32,7 @@ import container.ResourcesContainer;
  * Tests to export a property file
  * 
  * 
- * Copyright 2010, Raphael Mechali <br>
+ * Copyright 2010, Raphael Mechali <br
  * Distributed under Lesser GNU General Public License (LGPL)
  */
 public class ExportTest {
@@ -53,16 +53,16 @@ public class ExportTest {
 		BasicResourcesLoader basicLoader1 = new BasicResourcesLoader();
 		basicLoader1.addPropertyFile("imported_exported.prop");
 
-		Property<Long> initialLongProp = basicLoader1.getProperty(
-				"long.property", LongReader.getInstance());
-		Property<Boolean> initialBooleanProp = basicLoader1.getProperty(
+		Long initialLongProp = basicLoader1.getProperty("long.property",
+				LongReader.getInstance());
+		Boolean initialBooleanProp = basicLoader1.getProperty(
 				"boolean.property", BooleanReader.getInstance());
 		// if those properties are null a NullPointerException will be
 		// propagated
 
 		// B - (modulating long value so that it never goes out of bounds)
-		Long newLongValue = initialLongProp.getValue() + 1 % 100000;
-		Boolean newBoolValue = !initialBooleanProp.getValue();
+		Long newLongValue = initialLongProp + 1 % 100000;
+		Boolean newBoolValue = !initialBooleanProp;
 		ResourcesContainer.addPropertyI("long.property", new Property<Long>(
 				newLongValue, newLongValue.toString()));
 		ResourcesContainer.addPropertyI("boolean.property",
@@ -75,12 +75,12 @@ public class ExportTest {
 		BasicResourcesLoader basicLoader2 = new BasicResourcesLoader();
 		basicLoader2.addPropertyFile("imported_exported.prop");
 
-		Property<Long> newLongProp = basicLoader1.getProperty("long.property",
-				LongReader.getInstance());
-		Property<Boolean> newBooleanProp = basicLoader1.getProperty(
-				"boolean.property", BooleanReader.getInstance());
+		Long newLongProp = basicLoader1.getProperty("long.property", LongReader
+				.getInstance());
+		Boolean newBooleanProp = basicLoader1.getProperty("boolean.property",
+				BooleanReader.getInstance());
 
-		Assert.assertEquals(newLongValue, newLongProp.getValue());
-		Assert.assertEquals(newBoolValue, newBooleanProp.getValue());
+		Assert.assertEquals(newLongValue, newLongProp);
+		Assert.assertEquals(newBoolValue, newBooleanProp);
 	}
 }

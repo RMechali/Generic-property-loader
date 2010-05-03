@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * and GNU Lesser General Public License along with TestsGenericPropertyLoader project.
- * If not, see <http://www.gnu.org/licenses/>.
+ * If not, see <http://www.gnu.org/licenses/.
  **/
 
 package main.standard;
@@ -32,12 +32,10 @@ import loader.standard.SPLoader;
 import org.junit.Assert;
 import org.junit.Test;
 
-import container.Property;
-
 /**
  * Tests for the standard propery loader.
  * 
- * Copyright 2010, Raphael Mechali <br>
+ * Copyright 2010, Raphael Mechali <br
  * Distributed under Lesser GNU General Public License (LGPL)
  */
 public class SPLoaderTest {
@@ -81,13 +79,13 @@ public class SPLoaderTest {
 	@Test
 	public void testBigDecimal1() {
 		isValueOk = true;
-		Property<BigDecimal> bigDecimalProp = SPLoader
+		BigDecimal bigDecimalProp = SPLoader
 				.getBigDecimal("test.big.decimal.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// it is equal to the expected value
 		Assert.assertEquals(new BigDecimal("1500.588888888888888"),
-				bigDecimalProp.getValue());
+				bigDecimalProp);
 	}
 
 	/**
@@ -107,11 +105,11 @@ public class SPLoaderTest {
 	@Test
 	public void testBoolean1() {
 		isValueOk = true;
-		Property<Boolean> boolean1 = SPLoader.getBoolean("test.boolean.1");
+		Boolean boolean1 = SPLoader.getBoolean("test.boolean.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertTrue(boolean1.getValue());
+		Assert.assertTrue(boolean1);
 	}
 
 	/**
@@ -120,11 +118,11 @@ public class SPLoaderTest {
 	@Test
 	public void testBoolean2() {
 		isValueOk = true;
-		Property<Boolean> boolean2 = SPLoader.getBoolean("test.boolean.2");
+		Boolean boolean2 = SPLoader.getBoolean("test.boolean.2");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertFalse(boolean2.getValue());
+		Assert.assertFalse(boolean2);
 	}
 
 	/**
@@ -144,12 +142,11 @@ public class SPLoaderTest {
 	@Test
 	public void testCharacter1() {
 		isValueOk = true;
-		Property<Character> characterProp = SPLoader
-				.getCharacter("test.character.1");
+		Character characterProp = SPLoader.getCharacter("test.character.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertEquals(new Character('z'), characterProp.getValue());
+		Assert.assertEquals(new Character('z'), characterProp);
 	}
 
 	/**
@@ -180,13 +177,11 @@ public class SPLoaderTest {
 	@Test
 	public void testColor1() {
 		isValueOk = true;
-		Property<Color> colorProp = SPLoader.getColor("test.color.1");
+		Color colorProp = SPLoader.getColor("test.color.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert
-				.assertEquals(new Color(255, 255, 255, 255), colorProp
-						.getValue());
+		Assert.assertEquals(new Color(255, 255, 255, 255), colorProp);
 	}
 
 	/**
@@ -195,11 +190,11 @@ public class SPLoaderTest {
 	@Test
 	public void testColor2() {
 		isValueOk = true;
-		Property<Color> colorProp = SPLoader.getColor("test.color.2");
+		Color colorProp = SPLoader.getColor("test.color.2");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertEquals(new Color(0, 0, 0, 0), colorProp.getValue());
+		Assert.assertEquals(new Color(0, 0, 0, 0), colorProp);
 	}
 
 	/**
@@ -208,13 +203,11 @@ public class SPLoaderTest {
 	@Test
 	public void testColor3() {
 		isValueOk = true;
-		Property<Color> colorProp = SPLoader.getColor("test.color.3");
+		Color colorProp = SPLoader.getColor("test.color.3");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert
-				.assertEquals(new Color(255, 255, 255, 255), colorProp
-						.getValue());
+		Assert.assertEquals(new Color(255, 255, 255, 255), colorProp);
 	}
 
 	/**
@@ -223,11 +216,11 @@ public class SPLoaderTest {
 	@Test
 	public void testColor4() {
 		isValueOk = true;
-		Property<Color> colorProp = SPLoader.getColor("test.color.4");
+		Color colorProp = SPLoader.getColor("test.color.4");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertEquals(new Color(0, 0, 0, 0), colorProp.getValue());
+		Assert.assertEquals(new Color(0, 0, 0, 0), colorProp);
 	}
 
 	/**
@@ -324,11 +317,11 @@ public class SPLoaderTest {
 	@Test
 	public void testDouble() {
 		isValueOk = true;
-		Property<Double> doubleProp = SPLoader.getDouble("test.double.1");
+		Double doubleProp = SPLoader.getDouble("test.double.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertEquals(new Double(566.66), doubleProp.getValue());
+		Assert.assertEquals(new Double(566.66), doubleProp);
 	}
 
 	/**
@@ -348,11 +341,11 @@ public class SPLoaderTest {
 	@Test
 	public void testFloat() {
 		isValueOk = true;
-		Property<Float> floatProp = SPLoader.getFloat("test.float.1");
+		Float floatProp = SPLoader.getFloat("test.float.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertEquals(new Float(566.66), floatProp.getValue());
+		Assert.assertEquals(new Float(566.66), floatProp);
 	}
 
 	/**
@@ -373,7 +366,7 @@ public class SPLoaderTest {
 	public void testFont() {
 		isValueOk = true;
 		@SuppressWarnings("unused")
-		Property<Font> fontProp = SPLoader.getFont("test.font.1");
+		Font fontProp = SPLoader.getFont("test.font.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Cannot compare with the expected value
@@ -408,8 +401,7 @@ public class SPLoaderTest {
 	public void testImageIcon() {
 		isValueOk = true;
 		@SuppressWarnings("unused")
-		Property<ImageIcon> imageIconProp = SPLoader
-				.getIcon("test.image.icon.1");
+		ImageIcon imageIconProp = SPLoader.getIcon("test.image.icon.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Cannot compare with the expected value
@@ -443,11 +435,11 @@ public class SPLoaderTest {
 	@Test
 	public void testInteger() {
 		isValueOk = true;
-		Property<Integer> integerProp = SPLoader.getInteger("test.integer.1");
+		Integer integerProp = SPLoader.getInteger("test.integer.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertEquals(new Integer(22), integerProp.getValue());
+		Assert.assertEquals(new Integer(22), integerProp);
 	}
 
 	/**
@@ -467,11 +459,11 @@ public class SPLoaderTest {
 	@Test
 	public void testLong() {
 		isValueOk = true;
-		Property<Long> longProp = SPLoader.getLong("test.long.1");
+		Long longProp = SPLoader.getLong("test.long.1");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertEquals(new Long(16666666645L), longProp.getValue());
+		Assert.assertEquals(new Long(16666666645L), longProp);
 	}
 
 	/**
@@ -491,11 +483,10 @@ public class SPLoaderTest {
 	@Test
 	public void testString() {
 		isValueOk = true;
-		Property<String> stringProp = SPLoader.getString("test.string");
+		String stringProp = SPLoader.getString("test.string");
 		// the property has been parsed
 		Assert.assertTrue(isValueOk);
 		// Compare with the expected value
-		Assert.assertEquals("a string", stringProp.getValue());
+		Assert.assertEquals("a string", stringProp);
 	}
-
 }

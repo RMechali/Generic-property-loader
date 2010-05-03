@@ -9,7 +9,6 @@ import loader.standard.readers.StringReader;
 
 import org.junit.Test;
 
-import container.Property;
 import container.ResourcesContainer;
 
 /** 
@@ -45,10 +44,10 @@ public class BasicResourcesLoaderWorkingTest {
 	public void testGetProperty() {
 		BasicResourcesLoader loader = new BasicResourcesLoader();
 		loader.addPropertyFile("working/test_get_property.prop");
-		Property<String> property = loader.getProperty("basic.property",
-				StringReader.getInstance());
-		Assert.assertNotNull(property);
-		Assert.assertEquals("a value", property.getValue());
+		String value = loader.getProperty("basic.property", StringReader
+				.getInstance());
+		Assert.assertNotNull(value);
+		Assert.assertEquals("a value", value);
 	}
 
 	/**
@@ -62,17 +61,17 @@ public class BasicResourcesLoaderWorkingTest {
 		// add file at end
 		loader.addPropertyFile("working/test_get_property_2b.prop");
 		// get a property defined in 2.a only
-		Property<String> property = loader.getProperty("single.property",
-				StringReader.getInstance());
-		Assert.assertNotNull(property);
-		Assert.assertEquals("2a", property.getValue());
+		String value = loader.getProperty("single.property", StringReader
+				.getInstance());
+		Assert.assertNotNull(value);
+		Assert.assertEquals("2a", value);
 
 		// get a property defined in 2.a and 2b, verify that the 2.b is the one
 		// returned
-		property = loader.getProperty("overriden.property", StringReader
+		value = loader.getProperty("overriden.property", StringReader
 				.getInstance());
-		Assert.assertNotNull(property);
-		Assert.assertEquals("2b", property.getValue());
+		Assert.assertNotNull(value);
+		Assert.assertEquals("2b", value);
 	}
 
 	/**
@@ -98,9 +97,9 @@ public class BasicResourcesLoaderWorkingTest {
 		// add the initial file
 		loader.addPropertyFile("working/test_add_file_1.prop");
 		// get its property value
-		Property<String> property = loader.getProperty("test.add.property",
-				StringReader.getInstance());
-		Assert.assertEquals("file1", property.getValue());
+		String value = loader.getProperty("test.add.property", StringReader
+				.getInstance());
+		Assert.assertEquals("file1", value);
 		// assert that a notification has been performed
 		Assert.assertEquals(1, notifications[0]);
 		// add the new file
@@ -108,9 +107,9 @@ public class BasicResourcesLoaderWorkingTest {
 		// assert that a notification has been performed
 		Assert.assertEquals(2, notifications[0]);
 		// get its property value
-		property = loader.getProperty("test.add.property", StringReader
+		value = loader.getProperty("test.add.property", StringReader
 				.getInstance());
-		Assert.assertEquals("file2", property.getValue());
+		Assert.assertEquals("file2", value);
 		// assert that a notification has been performed
 		Assert.assertEquals(3, notifications[0]);
 	}

@@ -26,8 +26,6 @@ import loader.standard.readers.DoubleReader;
 
 import org.junit.Test;
 
-import container.Property;
-
 /**
  * Tests for the basic loader errors.
  * 
@@ -83,9 +81,9 @@ public class BasicResourcesLoaderErrorsTest {
 			}
 		});
 		// read the bad formated property
-		Property<Double> property = loader.getProperty(
-				"test.wrong.formated.property", DoubleReader.getInstance());
-		Assert.assertNotNull(property);
+		Double value = loader.getProperty("test.wrong.formated.property",
+				DoubleReader.getInstance());
+		Assert.assertNotNull(value);
 		Assert.assertTrue(finallyRead[0]);
 		Assert.assertEquals(1, readFailures[0]);
 	}
@@ -115,10 +113,10 @@ public class BasicResourcesLoaderErrorsTest {
 		loader.addPropertyFile("errors/bad_formated_property_2a.prop");
 
 		// read the bad formated property
-		Property<Double> property = loader.getProperty(
-				"test.wrong.formated.property", DoubleReader.getInstance());
+		Double value = loader.getProperty("test.wrong.formated.property",
+				DoubleReader.getInstance());
 
-		Assert.assertNull(property);
+		Assert.assertNull(value);
 		Assert.assertEquals(2, readFailures[0]);
 		Assert.assertFalse(finallyRead[0]);
 	}
