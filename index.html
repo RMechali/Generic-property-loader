@@ -1,83 +1,118 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<title>RMechali/Generic-property-loader @ GitHub</title>
-	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #E0E0F0;
-		  font-family: "Helvetica,Arial,FreeSans";
-  		color: #000000;
+<title>RMechali/Generic-property-loader @ GitHub</title>
+
+<style type="text/css">
+body {
+	margin-top: 1.0em;
+	background-color: #F0F4F8;
+	font-family: "Helvetica,Arial,FreeSans";
+	color: #000000;
     }
     #container {
       margin: 0 auto;
       width: 700px;
+	  background-color: #FFFFFF;
     }
-		h1 { font-size: 3.8em; color: #502b11; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #502b11; }
-    h3 { text-align: center; color: #502b11; }
-    a { color: #502b11; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+	#leftCorner{
+	  float: right
+	}
+	
+	#content{
+	  padding-top: 20px;
+	  padding-left: 20px;
+	  padding-bottom: 20px;
+	  padding-right: 20px;
+	}
+
+
+	
+h1 { font-size: 3.0em; color: #4284FF; margin-bottom: 3px; }
+h1 .small { font-size: 0.4em;float:right; width:600px;}
+h1 a { text-decoration: none }
+h2 { font-size: 1.2em; color: #5B8CC1; border-bottom:1px solid #E8E8F2; width:620px;}
+h3 { text-align: center; color: #000000; }
+a { color: #464F68; }
+    .description { font-size: 1.1em; margin-bottom: 30px; margin-top: 50px; font-style: italic;}
     .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
+	.titleLink {line-height:5px; color: #000000}
+	.author {
+		color: #000000;
+		font-style: italic;
+		font-style: bold;
+		line-height=1000px;}
+pre { 
+	color: #000000; 
+	padding:5px;
+	padding-left: 15px;
+	font-family: Calibri;
+	font-style: bold;
+	font-size:11pt;
+	}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
-	
+</style>
+
 </head>
 
 <body>
-  <a href="http://github.com/RMechali/Generic-property-loader"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+	
+<div id="container">
+	<div id="leftCorner">
+		<a href="http://github.com/RMechali/Generic-property-loader"><img style="position: relative;top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+	</div>
+	<div id="content">
+		<div class="download">
+		  <a href="http://github.com/RMechali/Generic-property-loader/zipball/master">
+			<img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+		  <a href="http://github.com/RMechali/Generic-property-loader/tarball/master">
+			<img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+		</div>
 
-  <div id="container">
+		<h1><a class="titleLink" href="http://github.com/RMechali/Generic-property-loader">Generic property loader</a>
+		  <span class="small">by <a class="author" href="http://github.com/RMechali">Rapha&euml;l Mechali</a></span></h1>
 
-    <div class="download">
-      <a href="http://github.com/RMechali/Generic-property-loader/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/RMechali/Generic-property-loader/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
+		<div class="description">
+		  The Generic property loader is a tiny project that aims at providing a flexible and easy to use API for loading property in JAVA applications/components. Generic, in the project name, means that the project has also for goal to type the data retrieved from property files, whatever that data type could be.
+		</div>
 
-    <h1><a href="http://github.com/RMechali/Generic-property-loader">Generic property loader</a>
-      <span class="small">by <a href="http://github.com/RMechali">RMechali</a></span></h1>
+		<h2>License</h2>
+		<p>LGPL (see <a href="http://www.gnu.org/licenses/lgpl.html">license text</a>)</p>
+		<h2>Authors</h2>
+		<p>Rapha&euml;l Mechali</p>
+		<h2>Contact</h2>
+		<p>Rapha&euml;l Mechali (raph_is_me@hotmail.com)</p>
 
-    <div class="description">
-      A generic property loader to fit GUI needs around user mutable/editable properties
-    </div>
+		<h2>Learn</h2>
+		<p>
+			Learn using the API at the project wiki page, in wiki
+			<a href="http://wiki.github.com/RMechali/Generic-property-loader/using-the-generic-property-loader-api">technical documentation</a> or
+			<a href="http://wiki.github.com/RMechali/Generic-property-loader/examples"> examples </a> sections.
+		</p>
+		<h2>Download</h2>
+		<p>
+		  You can download this project in either
+		  <a href="http://github.com/RMechali/Generic-property-loader/zipball/master">zip</a> or
+		  <a href="http://github.com/RMechali/Generic-property-loader/tarball/master">tar</a> formats.<br/>
+		  You can  find the compressed Jar in <a href="http://github.com/RMechali/Generic-property-loader/downloads">project downloads</a>.
+		<br />You can also clone the project with <a href="http://git-scm.com">Git</a>
+		  by running:
+		  <pre>> git clone git://github.com/RMechali/Generic-property-loader</pre>
+		</p>
 
-    <h2>License</h2>
-<p>LGPL</p>
-<h2>Authors</h2>
-<p>Raphaël Mechali</p>
-<h2>Contact</h2>
-<p>Raphael Mechali (raph_is_me@hotmail.com)
-<br/>      </p>
+		<div class="footer">
+		  get the source code on GitHub : <a href="http://github.com/RMechali/Generic-property-loader">RMechali/Generic-property-loader</a>
+		</div>
 
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/RMechali/Generic-property-loader/zipball/master">zip</a> or
-      <a href="http://github.com/RMechali/Generic-property-loader/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/RMechali/Generic-property-loader</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/RMechali/Generic-property-loader">RMechali/Generic-property-loader</a>
-    </div>
-
-  </div>
-
+	  </div>
+	</div>
   
 </body>
 </html>
+
+
