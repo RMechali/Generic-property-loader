@@ -16,12 +16,11 @@
  * If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package loader.standard.readers;
+package loader.standard.readers.direct.conversion;
 
 import java.awt.Color;
 import java.util.StringTokenizer;
 
-import loader.PropertyReader;
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
 import container.Property;
@@ -34,7 +33,7 @@ import container.Property;
  * Copyright 2010, Raphael Mechali <br>
  * Distributed under Lesser GNU General Public License (LGPL)
  */
-public class ColorReader implements PropertyReader<Color> {
+public class ColorReader implements IDirectValueConverter<Color> {
 
 	/** Singleton instance **/
 	private static ColorReader __instance;
@@ -213,6 +212,40 @@ public class ColorReader implements PropertyReader<Color> {
 		}
 
 		return new Color(r, g, b, a);
+	}
+
+	/**
+	 * {@inherit}
+	 */
+	@Override
+	public Property<Color> convertToProperty(Color value) {
+		if (value == null) {
+			return null;
+		} else {
+			// export as hexadecimal as it is supposed to be standard
+			return new Property<Color>(value, toHexaRepresentation(value));
+		}
+	}
+
+	/**
+	 * Export the color as hexadecimal represented color
+	 * 
+	 * @param value
+	 *            : value to export
+	 * @return - the comma separated value color string
+	 */
+	public String toHexaRepresentation(Color value) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(__HEXA_CHAR);
+		buffer.append(Integer.toHexString(value.getRed()));
+		buffer.append(Integer.toHexString(value.getRed()));
+		buffer.append(Integer.toHexString(value.getRed()));
+		int alpha = value.getAlpha();
+		if (alpha != 255) {
+			// export alpha only if it is not 255
+			buffer.append(Integer.toHexString(alpha));
+		}
+		return buffer.toString();
 	}
 
 	/**

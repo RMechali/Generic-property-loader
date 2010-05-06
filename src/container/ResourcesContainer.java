@@ -65,9 +65,20 @@ public class ResourcesContainer {
 	 *            : value for the key
 	 */
 	public void addProperty(String key, Property<?> value) {
-		Object oldValue = loadedProperties.get(key);
+		Property<?> oldProp = loadedProperties.get(key);
+		Object oldValue = null;
+		if (oldProp != null && !isUnfoundProperty(oldProp)) {
+			oldValue = oldProp.getValue();
+		}
+
 		loadedProperties.put(key, value);
-		support.firePropertyChange(key, oldValue, value);
+		Object newValue = null;
+		if (value != null && !isUnfoundProperty(value)) {
+			newValue = value.getValue();
+		}
+
+		// fire a property change of values only
+		support.firePropertyChange(key, oldValue, newValue);
 	}
 
 	/**

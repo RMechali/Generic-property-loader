@@ -16,28 +16,29 @@
  * If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package loader.standard.readers;
+package loader.standard.readers.direct.conversion;
 
-import loader.PropertyReader;
+import java.math.BigDecimal;
+
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
 import container.Property;
 
 /**
- * Default reader for boolean properties
+ * Default reader for big decimal properties
  * 
  * Copyright 2010, Raphael Mechali <br>
  * Distributed under Lesser GNU General Public License (LGPL)
  */
-public class BooleanReader implements PropertyReader<Boolean> {
+public class BigDecimalReader implements IDirectValueConverter<BigDecimal> {
 
 	/** Singleton instance **/
-	private static BooleanReader __instance;
+	private static BigDecimalReader __instance;
 
 	/**
 	 * Constructor
 	 */
-	private BooleanReader() {
+	private BigDecimalReader() {
 		// forbids external instance
 		// ensure reader messages are loaded
 		SPLoaderMessages.addDefaultMessages();
@@ -47,18 +48,29 @@ public class BooleanReader implements PropertyReader<Boolean> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Boolean> readProperty(String propertyRepresentation)
+	public Property<BigDecimal> readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
-		String stringValue = propertyRepresentation.trim();
-		// create the parsing method as the Boolean one do not propagate errors
-		if (stringValue.equalsIgnoreCase("true")) {
-			return new Property<Boolean>(true, propertyRepresentation);
+		try {
+			return new Property<BigDecimal>(new BigDecimal(
+					propertyRepresentation), propertyRepresentation);
+		} catch (NumberFormatException e) {
+			// bad formatted number
+			throw new IllegalArgumentException(DMLoader.getMessage(
+					SPLoaderMessages.BIG_DECIMAL_READER_ERROR,
+					propertyRepresentation));
 		}
-		if (stringValue.equalsIgnoreCase("false")) {
-			return new Property<Boolean>(false, propertyRepresentation);
+	}
+
+	/**
+	 * {@inherit}
+	 */
+	@Override
+	public Property<BigDecimal> convertToProperty(BigDecimal value) {
+		if (value == null) {
+			return null;
+		} else {
+			return new Property<BigDecimal>(value, value.toString());
 		}
-		throw new IllegalArgumentException(DMLoader.getMessage(
-				SPLoaderMessages.BOOLEAN_READER_ERROR, propertyRepresentation));
 	}
 
 	/**
@@ -66,9 +78,9 @@ public class BooleanReader implements PropertyReader<Boolean> {
 	 * 
 	 * @return - the singleton instance
 	 */
-	public static BooleanReader getInstance() {
+	public static BigDecimalReader getInstance() {
 		if (__instance == null) {
-			__instance = new BooleanReader();
+			__instance = new BigDecimalReader();
 		}
 		return __instance;
 	}

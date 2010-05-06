@@ -16,28 +16,27 @@
  * If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package loader.standard.readers;
+package loader.standard.readers.direct.conversion;
 
-import loader.PropertyReader;
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
 import container.Property;
 
 /**
- * Default reader for double properties
+ * Default reader for boolean properties
  * 
  * Copyright 2010, Raphael Mechali <br>
  * Distributed under Lesser GNU General Public License (LGPL)
  */
-public class DoubleReader implements PropertyReader<Double> {
+public class BooleanReader implements IDirectValueConverter<Boolean> {
 
 	/** Singleton instance **/
-	private static DoubleReader __instance;
+	private static BooleanReader __instance;
 
 	/**
 	 * Constructor
 	 */
-	private DoubleReader() {
+	private BooleanReader() {
 		// forbids external instance
 		// ensure reader messages are loaded
 		SPLoaderMessages.addDefaultMessages();
@@ -47,15 +46,29 @@ public class DoubleReader implements PropertyReader<Double> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Double> readProperty(String propertyRepresentation)
+	public Property<Boolean> readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
-		try {
-			return new Property<Double>(new Double(propertyRepresentation),
-					propertyRepresentation);
-		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(DMLoader.getMessage(
-					SPLoaderMessages.DOUBLE_READER_ERROR,
-					propertyRepresentation));
+		String stringValue = propertyRepresentation.trim();
+		// create the parsing method as the Boolean one do not propagate errors
+		if (stringValue.equalsIgnoreCase("true")) {
+			return new Property<Boolean>(true, propertyRepresentation);
+		}
+		if (stringValue.equalsIgnoreCase("false")) {
+			return new Property<Boolean>(false, propertyRepresentation);
+		}
+		throw new IllegalArgumentException(DMLoader.getMessage(
+				SPLoaderMessages.BOOLEAN_READER_ERROR, propertyRepresentation));
+	}
+
+	/**
+	 * {@inherit}
+	 */
+	@Override
+	public Property<Boolean> convertToProperty(Boolean value) {
+		if (value == null) {
+			return null;
+		} else {
+			return new Property<Boolean>(value, value.toString());
 		}
 	}
 
@@ -64,10 +77,11 @@ public class DoubleReader implements PropertyReader<Double> {
 	 * 
 	 * @return - the singleton instance
 	 */
-	public static DoubleReader getInstance() {
+	public static BooleanReader getInstance() {
 		if (__instance == null) {
-			__instance = new DoubleReader();
+			__instance = new BooleanReader();
 		}
 		return __instance;
 	}
+
 }

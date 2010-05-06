@@ -16,28 +16,27 @@
  * If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package loader.standard.readers;
+package loader.standard.readers.direct.conversion;
 
-import loader.PropertyReader;
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
 import container.Property;
 
 /**
- * Default reader for integer properties
+ * Default reader for long properties
  * 
  * Copyright 2010, Raphael Mechali <br>
  * Distributed under Lesser GNU General Public License (LGPL)
  */
-public class IntegerReader implements PropertyReader<Integer> {
+public class LongReader implements IDirectValueConverter<Long> {
 
 	/** Singleton instance **/
-	private static IntegerReader __instance;
+	private static LongReader __instance;
 
 	/**
 	 * Constructor
 	 */
-	private IntegerReader() {
+	private LongReader() {
 		// forbids external instance
 		// ensure reader messages are loaded
 		SPLoaderMessages.addDefaultMessages();
@@ -47,15 +46,26 @@ public class IntegerReader implements PropertyReader<Integer> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Integer> readProperty(String propertyRepresentation)
+	public Property<Long> readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		try {
-			return new Property<Integer>(new Integer(propertyRepresentation),
+			return new Property<Long>(new Long(propertyRepresentation),
 					propertyRepresentation);
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException(DMLoader.getMessage(
-					SPLoaderMessages.INTEGER_READER_ERROR,
-					propertyRepresentation));
+					SPLoaderMessages.LONG_READER_ERROR, propertyRepresentation));
+		}
+	}
+
+	/**
+	 * {@inherit}
+	 */
+	@Override
+	public Property<Long> convertToProperty(Long value) {
+		if (value == null) {
+			return null;
+		} else {
+			return new Property<Long>(value, value.toString());
 		}
 	}
 
@@ -64,9 +74,9 @@ public class IntegerReader implements PropertyReader<Integer> {
 	 * 
 	 * @return - the singleton instance
 	 */
-	public static IntegerReader getInstance() {
+	public static LongReader getInstance() {
 		if (__instance == null) {
-			__instance = new IntegerReader();
+			__instance = new LongReader();
 		}
 		return __instance;
 	}

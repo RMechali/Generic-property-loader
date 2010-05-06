@@ -16,30 +16,27 @@
  * If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package loader.standard.readers;
+package loader.standard.readers.direct.conversion;
 
-import java.math.BigDecimal;
-
-import loader.PropertyReader;
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
 import container.Property;
 
 /**
- * Default reader for big decimal properties
+ * Default reader for float properties
  * 
  * Copyright 2010, Raphael Mechali <br>
  * Distributed under Lesser GNU General Public License (LGPL)
  */
-public class BigDecimalReader implements PropertyReader<BigDecimal> {
+public class FloatReader implements IDirectValueConverter<Float> {
 
 	/** Singleton instance **/
-	private static BigDecimalReader __instance;
+	private static FloatReader __instance;
 
 	/**
 	 * Constructor
 	 */
-	private BigDecimalReader() {
+	private FloatReader() {
 		// forbids external instance
 		// ensure reader messages are loaded
 		SPLoaderMessages.addDefaultMessages();
@@ -49,16 +46,27 @@ public class BigDecimalReader implements PropertyReader<BigDecimal> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<BigDecimal> readProperty(String propertyRepresentation)
+	public Property<Float> readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		try {
-			return new Property<BigDecimal>(new BigDecimal(
-					propertyRepresentation), propertyRepresentation);
+			return new Property<Float>(new Float(propertyRepresentation),
+					propertyRepresentation);
 		} catch (NumberFormatException e) {
-			// bad formatted number
-			throw new IllegalArgumentException(DMLoader.getMessage(
-					SPLoaderMessages.BIG_DECIMAL_READER_ERROR,
-					propertyRepresentation));
+			throw new IllegalArgumentException(DMLoader
+					.getMessage(SPLoaderMessages.FLOAT_READER_ERROR,
+							propertyRepresentation));
+		}
+	}
+
+	/**
+	 * {@inherit}
+	 */
+	@Override
+	public Property<Float> convertToProperty(Float value) {
+		if (value == null) {
+			return null;
+		} else {
+			return new Property<Float>(value, value.toString());
 		}
 	}
 
@@ -67,9 +75,9 @@ public class BigDecimalReader implements PropertyReader<BigDecimal> {
 	 * 
 	 * @return - the singleton instance
 	 */
-	public static BigDecimalReader getInstance() {
+	public static FloatReader getInstance() {
 		if (__instance == null) {
-			__instance = new BigDecimalReader();
+			__instance = new FloatReader();
 		}
 		return __instance;
 	}

@@ -16,28 +16,27 @@
  * If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package loader.standard.readers;
+package loader.standard.readers.direct.conversion;
 
-import loader.PropertyReader;
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
 import container.Property;
 
 /**
- * Default reader for float properties
+ * Default reader for double properties
  * 
  * Copyright 2010, Raphael Mechali <br>
  * Distributed under Lesser GNU General Public License (LGPL)
  */
-public class FloatReader implements PropertyReader<Float> {
+public class DoubleReader implements IDirectValueConverter<Double> {
 
 	/** Singleton instance **/
-	private static FloatReader __instance;
+	private static DoubleReader __instance;
 
 	/**
 	 * Constructor
 	 */
-	private FloatReader() {
+	private DoubleReader() {
 		// forbids external instance
 		// ensure reader messages are loaded
 		SPLoaderMessages.addDefaultMessages();
@@ -47,15 +46,27 @@ public class FloatReader implements PropertyReader<Float> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Float> readProperty(String propertyRepresentation)
+	public Property<Double> readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		try {
-			return new Property<Float>(new Float(propertyRepresentation),
+			return new Property<Double>(new Double(propertyRepresentation),
 					propertyRepresentation);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(DMLoader
-					.getMessage(SPLoaderMessages.FLOAT_READER_ERROR,
-							propertyRepresentation));
+			throw new IllegalArgumentException(DMLoader.getMessage(
+					SPLoaderMessages.DOUBLE_READER_ERROR,
+					propertyRepresentation));
+		}
+	}
+
+	/**
+	 * {@inherit}
+	 */
+	@Override
+	public Property<Double> convertToProperty(Double value) {
+		if (value == null) {
+			return null;
+		} else {
+			return new Property<Double>(value, value.toString());
 		}
 	}
 
@@ -64,11 +75,10 @@ public class FloatReader implements PropertyReader<Float> {
 	 * 
 	 * @return - the singleton instance
 	 */
-	public static FloatReader getInstance() {
+	public static DoubleReader getInstance() {
 		if (__instance == null) {
-			__instance = new FloatReader();
+			__instance = new DoubleReader();
 		}
 		return __instance;
 	}
-
 }

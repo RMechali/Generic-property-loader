@@ -16,45 +16,48 @@
  * If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package loader.standard.readers;
+package loader.standard.readers.direct.conversion;
 
-import loader.PropertyReader;
-import loader.messages.DMLoader;
-import loader.standard.SPLoaderMessages;
 import container.Property;
 
 /**
- * Default reader for long properties
+ * Default reader for string properties.
  * 
  * Copyright 2010, Raphael Mechali <br>
  * Distributed under Lesser GNU General Public License (LGPL)
  */
-public class LongReader implements PropertyReader<Long> {
+public class StringReader implements IDirectValueConverter<String> {
 
 	/** Singleton instance **/
-	private static LongReader __instance;
+	private static StringReader __instance;
 
 	/**
 	 * Constructor
 	 */
-	private LongReader() {
+	private StringReader() {
 		// forbids external instance
-		// ensure reader messages are loaded
-		SPLoaderMessages.addDefaultMessages();
 	}
 
 	/**
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Long> readProperty(String propertyRepresentation)
+	public Property<String> readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
-		try {
-			return new Property<Long>(new Long(propertyRepresentation),
-					propertyRepresentation);
-		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(DMLoader.getMessage(
-					SPLoaderMessages.LONG_READER_ERROR, propertyRepresentation));
+		// identity
+		return new Property<String>(propertyRepresentation,
+				propertyRepresentation);
+	}
+
+	/**
+	 * {@inherit}
+	 */
+	@Override
+	public Property<String> convertToProperty(String value) {
+		if (value == null) {
+			return null;
+		} else {
+			return new Property<String>(value, value);
 		}
 	}
 
@@ -63,9 +66,9 @@ public class LongReader implements PropertyReader<Long> {
 	 * 
 	 * @return - the singleton instance
 	 */
-	public static LongReader getInstance() {
+	public static StringReader getInstance() {
 		if (__instance == null) {
-			__instance = new LongReader();
+			__instance = new StringReader();
 		}
 		return __instance;
 	}

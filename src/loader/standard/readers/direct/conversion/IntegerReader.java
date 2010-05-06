@@ -16,38 +16,58 @@
  * If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package loader.standard.readers;
+package loader.standard.readers.direct.conversion;
 
-import loader.PropertyReader;
+import loader.messages.DMLoader;
+import loader.standard.SPLoaderMessages;
 import container.Property;
 
 /**
- * Default reader for string properties.
+ * Default reader for integer properties
  * 
  * Copyright 2010, Raphael Mechali <br>
  * Distributed under Lesser GNU General Public License (LGPL)
  */
-public class StringReader implements PropertyReader<String> {
+public class IntegerReader implements IDirectValueConverter<Integer> {
 
 	/** Singleton instance **/
-	private static StringReader __instance;
+	private static IntegerReader __instance;
 
 	/**
 	 * Constructor
 	 */
-	private StringReader() {
+	private IntegerReader() {
 		// forbids external instance
+		// ensure reader messages are loaded
+		SPLoaderMessages.addDefaultMessages();
 	}
 
 	/**
 	 * {@inherit}
 	 */
 	@Override
-	public Property<String> readProperty(String propertyRepresentation)
+	public Property<Integer> readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
-		// identity
-		return new Property<String>(propertyRepresentation,
-				propertyRepresentation);
+		try {
+			return new Property<Integer>(new Integer(propertyRepresentation),
+					propertyRepresentation);
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException(DMLoader.getMessage(
+					SPLoaderMessages.INTEGER_READER_ERROR,
+					propertyRepresentation));
+		}
+	}
+
+	/**
+	 * {@inherit}
+	 */
+	@Override
+	public Property<Integer> convertToProperty(Integer value) {
+		if (value == null) {
+			return null;
+		} else {
+			return new Property<Integer>(value, value.toString());
+		}
 	}
 
 	/**
@@ -55,9 +75,9 @@ public class StringReader implements PropertyReader<String> {
 	 * 
 	 * @return - the singleton instance
 	 */
-	public static StringReader getInstance() {
+	public static IntegerReader getInstance() {
 		if (__instance == null) {
-			__instance = new StringReader();
+			__instance = new IntegerReader();
 		}
 		return __instance;
 	}

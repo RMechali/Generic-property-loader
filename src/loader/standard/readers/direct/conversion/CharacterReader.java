@@ -16,9 +16,8 @@
  * If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package loader.standard.readers;
+package loader.standard.readers.direct.conversion;
 
-import loader.PropertyReader;
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
 import container.Property;
@@ -29,7 +28,7 @@ import container.Property;
  * Copyright 2010, Raphael Mechali <br>
  * Distributed under Lesser GNU General Public License (LGPL)
  */
-public class CharacterReader implements PropertyReader<Character> {
+public class CharacterReader implements IDirectValueConverter<Character> {
 
 	/** Singleton instance **/
 	private static CharacterReader __instance;
@@ -57,6 +56,18 @@ public class CharacterReader implements PropertyReader<Character> {
 		}
 		return new Property<Character>(new Character(stringValue.charAt(0)),
 				propertyRepresentation);
+	}
+
+	/**
+	 * {@inherit}
+	 */
+	@Override
+	public Property<Character> convertToProperty(Character value) {
+		if (value == null) {
+			return null;
+		} else {
+			return new Property<Character>(value, value.toString());
+		}
 	}
 
 	/**

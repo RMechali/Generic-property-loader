@@ -27,17 +27,20 @@ import javax.swing.ImageIcon;
 import loader.BasicResourcesLoader;
 import loader.PropertyReader;
 import loader.error.ILoaderErrorListener;
-import loader.standard.readers.BigDecimalReader;
-import loader.standard.readers.BooleanReader;
-import loader.standard.readers.CharacterReader;
-import loader.standard.readers.ColorReader;
-import loader.standard.readers.DoubleReader;
-import loader.standard.readers.FloatReader;
 import loader.standard.readers.FontReader;
 import loader.standard.readers.ImageIconReader;
-import loader.standard.readers.IntegerReader;
-import loader.standard.readers.LongReader;
-import loader.standard.readers.StringReader;
+import loader.standard.readers.direct.conversion.BigDecimalReader;
+import loader.standard.readers.direct.conversion.BooleanReader;
+import loader.standard.readers.direct.conversion.CharacterReader;
+import loader.standard.readers.direct.conversion.ColorReader;
+import loader.standard.readers.direct.conversion.DoubleReader;
+import loader.standard.readers.direct.conversion.FloatReader;
+import loader.standard.readers.direct.conversion.IDirectValueConverter;
+import loader.standard.readers.direct.conversion.IntegerReader;
+import loader.standard.readers.direct.conversion.LongReader;
+import loader.standard.readers.direct.conversion.StringReader;
+import container.Property;
+import container.ResourcesContainer;
 
 /**
  * Standard Property Loader, that uses standard readers and singleton pattern to
@@ -167,48 +170,376 @@ public class SPLoader {
 		return getLoaderInstance().getProperty(key, reader);
 	}
 
+	/**
+	 * API extension : set a property from its new value representation and the
+	 * corresponding reader. Think about catching parse exceptions if you can
+	 * not grant it is valid.
+	 * 
+	 * @param <T>
+	 *            : type of value for that property
+	 * @param key
+	 *            : property key
+	 * @param newValueRepresentation
+	 *            : property new value representation (as it were in the
+	 *            property file)
+	 * @param newValueReader
+	 *            : the new value reader
+	 * @throws IllegalArgumentException
+	 *             - if the reader failed parsing the new property value (you
+	 *             may use the internationalized message to warn the user)<br>
+	 *             - if the key is null<br>
+	 *             - if the reader is null
+	 */
+	public static <T> void setProperty(String key,
+			String newValueRepresentation, PropertyReader<T> newValueReader) {
+		if (key == null) {
+			throw new IllegalArgumentException(
+					"The property key can not be null");
+		}
+		if (newValueReader == null) {
+			throw new IllegalArgumentException(
+					"The property reader can not be null");
+		}
+
+		Property<T> newPropertyValue = null;
+		if (newValueRepresentation != null) {
+			// read the property only if it is not null
+			newPropertyValue = newValueReader
+					.readProperty(newValueRepresentation);
+		}
+
+		ResourcesContainer.addPropertyI(key, newPropertyValue);
+	}
+
+	/**
+	 * API extension : set a property from its new value and the corresponding
+	 * converter.
+	 * 
+	 * @param <T>
+	 *            : type of value for that property
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : property new value
+	 * @param newValueConverter
+	 *            : the new value converter, that will provide a property from
+	 *            the value
+	 * @throws IllegalArgumentException
+	 *             - if the key is null<br>
+	 *             - if the converter is null
+	 */
+	public static <T> void setProperty(String key, T newValue,
+			IDirectValueConverter<T> newValueConverter) {
+		if (key == null) {
+			throw new IllegalArgumentException(
+					"The property key can not be null");
+		}
+		if (newValueConverter == null) {
+			throw new IllegalArgumentException(
+					"The property reader can not be null");
+		}
+		ResourcesContainer.addPropertyI(key, newValueConverter
+				.convertToProperty(newValue));
+	}
+
+	/**
+	 * Big decimal property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static BigDecimal getBigDecimal(String key) {
 		return getProperty(key, BigDecimalReader.getInstance());
 	}
 
+	/**
+	 * Boolean property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static Boolean getBoolean(String key) {
 		return getProperty(key, BooleanReader.getInstance());
 	}
 
+	/**
+	 * Character property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static Character getCharacter(String key) {
 		return getProperty(key, CharacterReader.getInstance());
 	}
 
+	/**
+	 * Color property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static Color getColor(String key) {
 		return getProperty(key, ColorReader.getInstance());
 	}
 
+	/**
+	 * Double property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static Double getDouble(String key) {
 		return getProperty(key, DoubleReader.getInstance());
 	}
 
+	/**
+	 * Float property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static Float getFloat(String key) {
 		return getProperty(key, FloatReader.getInstance());
 	}
 
+	/**
+	 * Font property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static Font getFont(String key) {
 		return getProperty(key, FontReader.getInstance());
 	}
 
+	/**
+	 * Image icon property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static ImageIcon getIcon(String key) {
 		return getProperty(key, ImageIconReader.getInstance());
 	}
 
+	/**
+	 * Integer property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static Integer getInteger(String key) {
 		return getProperty(key, IntegerReader.getInstance());
 	}
 
+	/**
+	 * Long property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static Long getLong(String key) {
 		return getProperty(key, LongReader.getInstance());
 	}
 
+	/**
+	 * String property getter (property getter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @return - property value
+	 */
 	public static String getString(String key) {
 		return getProperty(key, StringReader.getInstance());
+	}
+
+	/**
+	 * Big decimal property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : new value for the property
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setBigDecimal(String key, BigDecimal newValue) {
+		setProperty(key, newValue, BigDecimalReader.getInstance());
+	}
+
+	/**
+	 * Boolean property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : new value for the property
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setBoolean(String key, Boolean newValue) {
+		setProperty(key, newValue, BooleanReader.getInstance());
+	}
+
+	/**
+	 * Character property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : new value for the property
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setCharacter(String key, Character newValue) {
+		setProperty(key, newValue, CharacterReader.getInstance());
+	}
+
+	/**
+	 * Color property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : new value for the property
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setColor(String key, Color newValue) {
+		setProperty(key, newValue, ColorReader.getInstance());
+	}
+
+	/**
+	 * Color property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValueRepresentation
+	 *            : new value representation for the property (at comma
+	 *            separated or hexadecimal format)
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setColor(String key, String newValueRepresentation) {
+		setProperty(key, newValueRepresentation, ColorReader.getInstance());
+	}
+
+	/**
+	 * Double property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : new value for the property
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setDouble(String key, Double newValue) {
+		setProperty(key, newValue, DoubleReader.getInstance());
+	}
+
+	/**
+	 * Float property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : new value for the property
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setFloat(String key, Float newValue) {
+		setProperty(key, newValue, FloatReader.getInstance());
+	}
+
+	/**
+	 * Font property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param filePath
+	 *            : path to the font file
+	 * @throws IllegalArgumentException
+	 *             - if the file path does not contain any valid font<br>
+	 *             - if the key is null
+	 */
+	public static void setFont(String key, String filePath) {
+		setProperty(key, filePath, FontReader.getInstance());
+	}
+
+	/**
+	 * Icon property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param filePath
+	 *            : path to the image file
+	 * @throws IllegalArgumentException
+	 *             - if the file path does not contain any valid image<br>
+	 *             - if the key is null
+	 */
+	public static void setIcon(String key, String filePath) {
+		setProperty(key, filePath, ImageIconReader.getInstance());
+	}
+
+	/**
+	 * Integer property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : new value for the property
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setInteger(String key, Integer newValue) {
+		setProperty(key, newValue, IntegerReader.getInstance());
+	}
+
+	/**
+	 * Long property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : new value for the property
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setLong(String key, Long newValue) {
+		setProperty(key, newValue, LongReader.getInstance());
+	}
+
+	/**
+	 * String property value setter (property setter closure)
+	 * 
+	 * @param key
+	 *            : property key
+	 * @param newValue
+	 *            : new value for the property
+	 * @throws IllegalArgumentException
+	 *             : if the key is null
+	 */
+	public static void setString(String key, String newValue) {
+		if (key == null) {
+			throw new IllegalArgumentException(
+					"The property key can not be null");
+		}
+		// the closure can not work for identity, the method access directly to
+		// resource container
+		Property<String> newProperty = StringReader.getInstance()
+				.convertToProperty(newValue);
+		ResourcesContainer.addPropertyI(key, newProperty);
 	}
 
 }
