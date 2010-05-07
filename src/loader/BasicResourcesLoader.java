@@ -74,8 +74,6 @@ import container.ResourcesContainer;
  */
 public class BasicResourcesLoader {
 
-	// TODO : register the project to the GNU (see bookmark)
-
 	/** Class loader for this resource loader **/
 	private ClassLoader classLoader;
 
@@ -408,7 +406,6 @@ public class BasicResourcesLoader {
 	 * 
 	 */
 	public void exportFileContent(String fileName) {
-		// TODO : tests
 
 		// test parameters
 		if (fileName == null) {

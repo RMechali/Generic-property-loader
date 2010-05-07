@@ -222,9 +222,29 @@ public class ColorReader implements IDirectValueConverter<Color> {
 		if (value == null) {
 			return null;
 		} else {
-			// export as hexadecimal as it is supposed to be standard
-			return new Property<Color>(value, toHexaRepresentation(value));
+			// export as comma representation as its is better supported in Java
+			// properties
+			return new Property<Color>(value, toCommaRepresentation(value));
 		}
+	}
+
+	/**
+	 * Export the color as comma separated represented color
+	 * 
+	 * @param value
+	 *            : value to export
+	 * @return - the comma separated value color string
+	 */
+	public String toCommaRepresentation(Color value) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(value.getRed());
+		buffer.append(__COMMA_SEPARATOR);
+		buffer.append(value.getGreen());
+		buffer.append(__COMMA_SEPARATOR);
+		buffer.append(value.getBlue());
+		buffer.append(__COMMA_SEPARATOR);
+		buffer.append(value.getAlpha());
+		return buffer.toString();
 	}
 
 	/**
@@ -238,8 +258,8 @@ public class ColorReader implements IDirectValueConverter<Color> {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(__HEXA_CHAR);
 		buffer.append(Integer.toHexString(value.getRed()));
-		buffer.append(Integer.toHexString(value.getRed()));
-		buffer.append(Integer.toHexString(value.getRed()));
+		buffer.append(Integer.toHexString(value.getGreen()));
+		buffer.append(Integer.toHexString(value.getBlue()));
 		int alpha = value.getAlpha();
 		if (alpha != 255) {
 			// export alpha only if it is not 255
