@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 
 import junit.framework.Assert;
 import loader.BasicResourcesLoader;
-import loader.standard.readers.StringReader;
+import loader.standard.readers.direct.conversion.StringReader;
 
 import org.junit.Test;
 

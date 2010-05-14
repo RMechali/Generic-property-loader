@@ -19,8 +19,8 @@
 package main.export;
 
 import loader.BasicResourcesLoader;
-import loader.standard.readers.BooleanReader;
-import loader.standard.readers.LongReader;
+import loader.standard.readers.direct.conversion.BooleanReader;
+import loader.standard.readers.direct.conversion.LongReader;
 
 import org.junit.Assert;
 import org.junit.Test;

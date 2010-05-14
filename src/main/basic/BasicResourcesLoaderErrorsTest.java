@@ -22,7 +22,7 @@ import junit.framework.Assert;
 import loader.BasicResourcesLoader;
 import loader.error.BadPropertyFormatError;
 import loader.error.LoaderErrorAdapter;
-import loader.standard.readers.DoubleReader;
+import loader.standard.readers.direct.conversion.DoubleReader;
 
 import org.junit.Test;
 
