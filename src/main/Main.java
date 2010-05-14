@@ -101,7 +101,7 @@ public class Main {
 		System.err.println("Integer value : " + integer);
 
 		// 6 - error : property not found and, finally, could not read
-		// property (as it was found in no file)
+		// property (as it was not found in any file)
 		SPLoader.getColor("unexisting.property.color");
 	}
 }
