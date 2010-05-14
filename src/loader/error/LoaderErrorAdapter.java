@@ -56,7 +56,7 @@ public class LoaderErrorAdapter implements ILoaderErrorListener {
 	 * {@inherit}
 	 */
 	@Override
-	public void notifyPropertyNotFound(List<String> searchedFiles) {
+	public void notifyPropertyNotFound(String key, List<String> searchedFiles) {
 		// nothing to do
 	}
 

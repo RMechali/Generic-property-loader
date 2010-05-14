@@ -57,11 +57,13 @@ public interface ILoaderErrorListener {
 	 * Invoked when a property could not be read because it was not defined in
 	 * any file
 	 * 
+	 * @param key
+	 *            : property key
 	 * @param searchedFiles
 	 *            : list of files searched (and current list of the loader
 	 *            files)
 	 */
-	void notifyPropertyNotFound(List<String> searchedFiles);
+	void notifyPropertyNotFound(String key, List<String> searchedFiles);
 
 	/**
 	 * Invoked when a property was loaded but could not be parsed by the reader.

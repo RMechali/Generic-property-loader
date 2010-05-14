@@ -295,7 +295,7 @@ public class BasicResourcesLoader {
 		// error case : no valid property has been found
 		if (errorsCount == 0) {
 			// the property has not been found
-			fireNotFoundError();
+			fireNotFoundError(key);
 		}
 
 		// error case : all properties was bad formatted, the property has
@@ -512,13 +512,16 @@ public class BasicResourcesLoader {
 
 	/**
 	 * Notify listeners that a property was not found in current files
+	 * 
+	 * @param propertyKey
+	 *            : key not found
 	 */
-	private void fireNotFoundError() {
+	private void fireNotFoundError(String propertyKey) {
 		// avoid concurrent access by duplicating the list
 		for (ILoaderErrorListener listener : new ArrayList<ILoaderErrorListener>(
 				_errorListeners)) {
-			listener
-					.notifyPropertyNotFound(new ArrayList<String>(propertyFiles));
+			listener.notifyPropertyNotFound(propertyKey, new ArrayList<String>(
+					propertyFiles));
 		}
 	}
 
