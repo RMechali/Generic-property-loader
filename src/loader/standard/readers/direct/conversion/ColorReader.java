@@ -23,7 +23,6 @@ import java.util.StringTokenizer;
 
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for color properties. The supported color properties are : <br>
@@ -60,18 +59,16 @@ public class ColorReader implements IDirectValueConverter<Color> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Color> readProperty(String propertyRepresentation)
+	public Color readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		String stringValue = propertyRepresentation.trim();
 		if (!stringValue.isEmpty()) {
 			// attempt parsing as hexadecimal
 			if (stringValue.charAt(0) == __HEXA_CHAR) {
-				return new Property<Color>(readHexaColor(stringValue),
-						propertyRepresentation);
+				return readHexaColor(stringValue);
 			}
 			// comma separated values
-			return new Property<Color>(readCommaSeparatedColor(stringValue),
-					propertyRepresentation);
+			return readCommaSeparatedColor(stringValue);
 		}
 		throw new IllegalArgumentException(DMLoader
 				.getMessage(SPLoaderMessages.COLOR_READER_ERROR_EMPTY));
@@ -218,13 +215,13 @@ public class ColorReader implements IDirectValueConverter<Color> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Color> convertToProperty(Color value) {
+	public String convertToProperty(Color value) {
 		if (value == null) {
 			return null;
 		} else {
 			// export as comma representation as its is better supported in Java
 			// properties
-			return new Property<Color>(value, toCommaRepresentation(value));
+			return toCommaRepresentation(value);
 		}
 	}
 

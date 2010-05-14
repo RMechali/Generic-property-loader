@@ -20,7 +20,6 @@ package loader.standard.readers.direct.conversion;
 
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for float properties
@@ -46,11 +45,10 @@ public class FloatReader implements IDirectValueConverter<Float> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Float> readProperty(String propertyRepresentation)
+	public Float readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		try {
-			return new Property<Float>(new Float(propertyRepresentation),
-					propertyRepresentation);
+			return new Float(propertyRepresentation);
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException(DMLoader
 					.getMessage(SPLoaderMessages.FLOAT_READER_ERROR,
@@ -62,11 +60,11 @@ public class FloatReader implements IDirectValueConverter<Float> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Float> convertToProperty(Float value) {
+	public String convertToProperty(Float value) {
 		if (value == null) {
 			return null;
 		} else {
-			return new Property<Float>(value, value.toString());
+			return value.toString();
 		}
 	}
 

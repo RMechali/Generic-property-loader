@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for big decimal properties
@@ -48,11 +47,10 @@ public class BigDecimalReader implements IDirectValueConverter<BigDecimal> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<BigDecimal> readProperty(String propertyRepresentation)
+	public BigDecimal readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		try {
-			return new Property<BigDecimal>(new BigDecimal(
-					propertyRepresentation), propertyRepresentation);
+			return new BigDecimal(propertyRepresentation);
 		} catch (NumberFormatException e) {
 			// bad formatted number
 			throw new IllegalArgumentException(DMLoader.getMessage(
@@ -65,11 +63,11 @@ public class BigDecimalReader implements IDirectValueConverter<BigDecimal> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<BigDecimal> convertToProperty(BigDecimal value) {
+	public String convertToProperty(BigDecimal value) {
 		if (value == null) {
 			return null;
 		} else {
-			return new Property<BigDecimal>(value, value.toString());
+			return value.toString();
 		}
 	}
 

@@ -20,7 +20,6 @@ package loader.standard.readers.direct.conversion;
 
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for char properties
@@ -46,7 +45,7 @@ public class CharacterReader implements IDirectValueConverter<Character> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Character> readProperty(String propertyRepresentation)
+	public Character readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		String stringValue = propertyRepresentation.trim();
 		if (stringValue.isEmpty() || stringValue.length() > 1) {
@@ -54,19 +53,18 @@ public class CharacterReader implements IDirectValueConverter<Character> {
 					SPLoaderMessages.CHARACTER_READER_ERROR,
 					propertyRepresentation));
 		}
-		return new Property<Character>(new Character(stringValue.charAt(0)),
-				propertyRepresentation);
+		return new Character(stringValue.charAt(0));
 	}
 
 	/**
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Character> convertToProperty(Character value) {
+	public String convertToProperty(Character value) {
 		if (value == null) {
 			return null;
 		} else {
-			return new Property<Character>(value, value.toString());
+			return value.toString();
 		}
 	}
 

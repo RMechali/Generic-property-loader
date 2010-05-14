@@ -20,7 +20,6 @@ package loader.standard.readers.direct.conversion;
 
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for integer properties
@@ -46,11 +45,10 @@ public class IntegerReader implements IDirectValueConverter<Integer> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Integer> readProperty(String propertyRepresentation)
+	public Integer readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		try {
-			return new Property<Integer>(new Integer(propertyRepresentation),
-					propertyRepresentation);
+			return new Integer(propertyRepresentation);
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException(DMLoader.getMessage(
 					SPLoaderMessages.INTEGER_READER_ERROR,
@@ -62,11 +60,11 @@ public class IntegerReader implements IDirectValueConverter<Integer> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Integer> convertToProperty(Integer value) {
+	public String convertToProperty(Integer value) {
 		if (value == null) {
 			return null;
 		} else {
-			return new Property<Integer>(value, value.toString());
+			return value.toString();
 		}
 	}
 

@@ -66,12 +66,21 @@ public class ResourcesContainer {
 	 */
 	public void addProperty(String key, Property<?> value) {
 		Property<?> oldProp = loadedProperties.get(key);
+
+		// compute the old user value
 		Object oldValue = null;
 		if (oldProp != null && !isUnfoundProperty(oldProp)) {
 			oldValue = oldProp.getValue();
 		}
 
-		loadedProperties.put(key, value);
+		if (value == null) {
+			// put an item not found to not search again for the same value
+			loadedProperties.put(key, ITEM_NOT_FOUND);
+		} else {
+			loadedProperties.put(key, value);
+		}
+
+		// compute the user value
 		Object newValue = null;
 		if (value != null && !isUnfoundProperty(value)) {
 			newValue = value.getValue();
@@ -90,7 +99,7 @@ public class ResourcesContainer {
 	 *            : value for the key
 	 */
 	public void addProperty(String key) {
-		addProperty(key, ITEM_NOT_FOUND);
+		addProperty(key, null);
 	}
 
 	/**

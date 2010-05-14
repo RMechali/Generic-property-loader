@@ -204,8 +204,9 @@ public class SPLoader {
 		Property<T> newPropertyValue = null;
 		if (newValueRepresentation != null) {
 			// read the property only if it is not null
-			newPropertyValue = newValueReader
-					.readProperty(newValueRepresentation);
+			newPropertyValue = new Property<T>(newValueReader
+					.readProperty(newValueRepresentation),
+					newValueRepresentation);
 		}
 
 		ResourcesContainer.addPropertyI(key, newPropertyValue);
@@ -238,8 +239,8 @@ public class SPLoader {
 			throw new IllegalArgumentException(
 					"The property reader can not be null");
 		}
-		ResourcesContainer.addPropertyI(key, newValueConverter
-				.convertToProperty(newValue));
+		ResourcesContainer.addPropertyI(key, new Property<T>(newValue,
+				newValueConverter.convertToProperty(newValue)));
 	}
 
 	/**
@@ -537,8 +538,7 @@ public class SPLoader {
 		}
 		// the closure can not work for identity, the method access directly to
 		// resource container
-		Property<String> newProperty = StringReader.getInstance()
-				.convertToProperty(newValue);
+		Property<String> newProperty = new Property<String>(newValue, newValue);
 		ResourcesContainer.addPropertyI(key, newProperty);
 	}
 

@@ -18,8 +18,6 @@
 
 package loader;
 
-import container.Property;
-
 /**
  * Interface for property deserializer from String values. It allows the
  * {@link BasicResourcesLoader} user to control the format he wants for
@@ -40,12 +38,12 @@ public interface PropertyReader<T> {
 	 * 
 	 * @param propertyRepresentation
 	 *            : property representation in the property text file
-	 * @return - the property instantiated (not null)
+	 * @return - the property value (not null)
 	 * @throws IllegalArgumentException
 	 *             : if the representation can not be parsed, such exceptions
 	 *             should be thrown (the exception message will be propagated)
 	 */
-	Property<T> readProperty(String propertyRepresentation)
+	T readProperty(String propertyRepresentation)
 			throws IllegalArgumentException;
 
 }

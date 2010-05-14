@@ -20,7 +20,6 @@ package loader.standard.readers.direct.conversion;
 
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for long properties
@@ -46,11 +45,10 @@ public class LongReader implements IDirectValueConverter<Long> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Long> readProperty(String propertyRepresentation)
+	public Long readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		try {
-			return new Property<Long>(new Long(propertyRepresentation),
-					propertyRepresentation);
+			return new Long(propertyRepresentation);
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException(DMLoader.getMessage(
 					SPLoaderMessages.LONG_READER_ERROR, propertyRepresentation));
@@ -61,11 +59,11 @@ public class LongReader implements IDirectValueConverter<Long> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Long> convertToProperty(Long value) {
+	public String convertToProperty(Long value) {
 		if (value == null) {
 			return null;
 		} else {
-			return new Property<Long>(value, value.toString());
+			return value.toString();
 		}
 	}
 

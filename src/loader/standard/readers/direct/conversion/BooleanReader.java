@@ -20,7 +20,6 @@ package loader.standard.readers.direct.conversion;
 
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for boolean properties
@@ -46,15 +45,15 @@ public class BooleanReader implements IDirectValueConverter<Boolean> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Boolean> readProperty(String propertyRepresentation)
+	public Boolean readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		String stringValue = propertyRepresentation.trim();
 		// create the parsing method as the Boolean one do not propagate errors
 		if (stringValue.equalsIgnoreCase("true")) {
-			return new Property<Boolean>(true, propertyRepresentation);
+			return true;
 		}
 		if (stringValue.equalsIgnoreCase("false")) {
-			return new Property<Boolean>(false, propertyRepresentation);
+			return false;
 		}
 		throw new IllegalArgumentException(DMLoader.getMessage(
 				SPLoaderMessages.BOOLEAN_READER_ERROR, propertyRepresentation));
@@ -64,11 +63,11 @@ public class BooleanReader implements IDirectValueConverter<Boolean> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Boolean> convertToProperty(Boolean value) {
+	public String convertToProperty(Boolean value) {
 		if (value == null) {
 			return null;
 		} else {
-			return new Property<Boolean>(value, value.toString());
+			return value.toString();
 		}
 	}
 

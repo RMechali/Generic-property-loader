@@ -276,7 +276,8 @@ public class BasicResourcesLoader {
 				try {
 
 					// read serialized data
-					Property<T> newValue = reader.readProperty(litteralValue);
+					Property<T> newValue = new Property<T>(reader
+							.readProperty(litteralValue), litteralValue);
 
 					// store the property value
 					ResourcesContainer.addPropertyI(key, newValue);

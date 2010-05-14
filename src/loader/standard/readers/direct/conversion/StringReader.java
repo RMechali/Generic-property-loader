@@ -18,7 +18,6 @@
 
 package loader.standard.readers.direct.conversion;
 
-import container.Property;
 
 /**
  * Default reader for string properties.
@@ -42,23 +41,18 @@ public class StringReader implements IDirectValueConverter<String> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<String> readProperty(String propertyRepresentation)
+	public String readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		// identity
-		return new Property<String>(propertyRepresentation,
-				propertyRepresentation);
+		return propertyRepresentation;
 	}
 
 	/**
 	 * {@inherit}
 	 */
 	@Override
-	public Property<String> convertToProperty(String value) {
-		if (value == null) {
-			return null;
-		} else {
-			return new Property<String>(value, value);
-		}
+	public String convertToProperty(String value) {
+		return value;
 	}
 
 	/**

@@ -20,7 +20,6 @@ package loader.standard.readers.direct.conversion;
 
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for double properties
@@ -46,11 +45,10 @@ public class DoubleReader implements IDirectValueConverter<Double> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Double> readProperty(String propertyRepresentation)
+	public Double readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		try {
-			return new Property<Double>(new Double(propertyRepresentation),
-					propertyRepresentation);
+			return new Double(propertyRepresentation);
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException(DMLoader.getMessage(
 					SPLoaderMessages.DOUBLE_READER_ERROR,
@@ -62,11 +60,11 @@ public class DoubleReader implements IDirectValueConverter<Double> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Double> convertToProperty(Double value) {
+	public String convertToProperty(Double value) {
 		if (value == null) {
 			return null;
 		} else {
-			return new Property<Double>(value, value.toString());
+			return value.toString();
 		}
 	}
 

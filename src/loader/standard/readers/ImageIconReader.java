@@ -28,7 +28,6 @@ import javax.swing.ImageIcon;
 import loader.PropertyReader;
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for image icon properties. The image icon file can be
@@ -55,7 +54,7 @@ public class ImageIconReader implements PropertyReader<ImageIcon> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<ImageIcon> readProperty(String propertyRepresentation)
+	public ImageIcon readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		String filePath = propertyRepresentation.trim();
 		URL iconURL = ClassLoader.getSystemClassLoader().getResource(filePath);
@@ -93,7 +92,7 @@ public class ImageIconReader implements PropertyReader<ImageIcon> {
 					SPLoaderMessages.IMAGE_READER_INVALID_IMAGE_FILE, iconURL
 							.toString()));
 		}
-		return new Property<ImageIcon>(imageIcon, propertyRepresentation);
+		return imageIcon;
 	}
 
 	/**

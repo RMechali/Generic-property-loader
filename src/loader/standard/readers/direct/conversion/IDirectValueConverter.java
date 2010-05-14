@@ -19,7 +19,6 @@
 package loader.standard.readers.direct.conversion;
 
 import loader.PropertyReader;
-import container.Property;
 
 /**
  * This interface marks a reader that can export a property value as a property
@@ -34,16 +33,18 @@ import container.Property;
 public interface IDirectValueConverter<T> extends PropertyReader<T> {
 
 	/**
-	 * Converts a value into the corresponding property
+	 * Converts a value into the corresponding litteral string
 	 * 
 	 * @param value
-	 * @return - the corresponding property or null if null as parameter
+	 *            : value to convert
+	 * @return - the corresponding literal string (that could be parsed to
+	 *         obtain the sale value) or null if null as parameter
 	 * @note : For a property reader to implement this method, the following
 	 *       rule must be verified : the property representation can be
 	 *       converted in a unique value, the property value can be converted in
 	 *       a unique representation
 	 * 
 	 */
-	Property<T> convertToProperty(T value);
+	String convertToProperty(T value);
 
 }

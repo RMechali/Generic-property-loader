@@ -19,7 +19,6 @@
 package loader.messages.data;
 
 import loader.PropertyReader;
-import container.Property;
 
 /**
  * Reader for compound message
@@ -45,11 +44,10 @@ public class MessagesReader implements PropertyReader<CompoundMessage> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<CompoundMessage> readProperty(String propertyRepresentation)
+	public CompoundMessage readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		// propapate class exceptions
-		return new Property<CompoundMessage>(new CompoundMessage(
-				propertyRepresentation), propertyRepresentation);
+		return new CompoundMessage(propertyRepresentation);
 	}
 
 	/**

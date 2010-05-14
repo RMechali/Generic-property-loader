@@ -29,7 +29,6 @@ import java.net.URL;
 import loader.PropertyReader;
 import loader.messages.DMLoader;
 import loader.standard.SPLoaderMessages;
-import container.Property;
 
 /**
  * Default reader for font properties. The font file can be specified as
@@ -56,7 +55,7 @@ public class FontReader implements PropertyReader<Font> {
 	 * {@inherit}
 	 */
 	@Override
-	public Property<Font> readProperty(String propertyRepresentation)
+	public Font readProperty(String propertyRepresentation)
 			throws IllegalArgumentException {
 		String filePath = propertyRepresentation.trim();
 		URL fontURL = ClassLoader.getSystemClassLoader().getResource(filePath);
@@ -92,7 +91,7 @@ public class FontReader implements PropertyReader<Font> {
 		}
 
 		// build a property font that can be exported in property file later on
-		return new Property<Font>(loadedFont, propertyRepresentation);
+		return loadedFont;
 	}
 
 	/**
