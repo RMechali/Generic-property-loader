@@ -1,0 +1,103 @@
+<project name="Example6" basedir="." default="">
+
+	<!-- Project properties -->
+
+	<!-- Source directory that contains our project source -->
+	<property name="project.sources.directory" value="src" />
+	<!-- Main class -->
+	<property name="project.main.class" value="main.Main" />
+	<!-- Libraries -->
+	<property name="project.libraries.directory" value="lib/" />
+	<!-- Messages file folder -->
+	<property name="project.messages.directory" value="messages" />
+
+	<!-- build properties -->
+
+	<!-- temporary build directories and properties -->
+	<property name="temp.directory" value="temp" />
+	<property name="temp.uncompressed" value="${temp.directory}/uncompressed" />
+	<property name="application.jar.name" value="application.jar" />
+
+	<!-- Absolute deployment properties -->
+	<property name="deployed.libraries.folder" value="libraries/" />
+
+	<!-- Local deployment properties -->
+	<!-- Deployed directory that contains our project as it would be deployed  -->
+	<property name="temp.deployment.directory" value="${temp.directory}/deployed" />
+	<property name="temp.deployment.libraries.directory" value="${temp.deployment.directory}/${deployed.libraries.folder}" />
+
+
+
+	<!-- We clean here the build and deployment directories -->
+	<target name="clean">
+		<delete dir="${temp.directory}" />
+	</target>
+
+	<!-- Compilation task, that compiles code and place it in the temp uncompressed directory -->
+	<target name="compile">
+		<mkdir dir="${temp.uncompressed}" />
+
+		<!-- Defining our compilation class path -->
+		<path id="compile.classpath">
+			<!-- Adds all libraries (and also sub folder libraries) -->
+			<fileset dir="${project.libraries.directory}" includes="**/*.jar" />
+		</path>
+
+		<!-- Compile source code -->
+		<javac srcdir="${project.sources.directory}" destdir="${temp.uncompressed}" classpathref="compile.classpath" />
+	</target>
+
+	<!-- Task to create the uncompressed directory, that copies default property files into the compilation folder -->
+	<target name="create_uncompressed_directory">
+		<!-- push the messages within the uncompressed folder, to compress it together with source file in a Jar -->
+		<copy todir="${temp.uncompressed}" flatten="false">
+			<fileset dir="${project.messages.directory}" includes="**/*.prop" />
+		</copy>
+	</target>
+
+	<!-- Task to create the Jar file, by compressing the temporary uncompressed folder -->
+	<target name="create_deployed_directory">
+
+		<!-- create the deployed libraries directory and copy the libraries in it -->
+		<mkdir dir="${temp.deployment.libraries.directory}" />
+		<copy todir="${temp.deployment.libraries.directory}">
+			<fileset dir="${project.libraries.directory}" includes="**/*.jar" />
+		</copy>
+
+		<!-- Convert libraries list to a valid Manifest classpath element -->
+		<pathconvert property="manifest.run.classpath.libraries" pathsep=" ">
+			<!-- Map file [File.jar] to [deployment libraries]/[File.jar] -->
+			<mapper>
+				<chainedmapper>
+					<flattenmapper />
+					<globmapper from="*.jar" to="${deployed.libraries.folder}*.jar" />
+				</chainedmapper>
+			</mapper>
+			<!-- List of Jar files in library directory -->
+			<path>
+				<fileset dir="${temp.deployment.libraries.directory}">
+					<include name="**/*.jar" />
+				</fileset>
+			</path>
+		</pathconvert>
+
+
+		<!-- Create the application Jar using source code and default property files -->
+		<jar destfile="${temp.deployment.directory}/${application.jar.name}" basedir="${temp.uncompressed}" compress="true">
+			<manifest>
+				<attribute name="Main-Class" value="main.Main" />
+				<!-- Class path : all libraries -->
+				<attribute name="Class-Path" value="${manifest.run.classpath.libraries}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Task to do all stuff to prepare our deployed directory -->
+	<target name="make_all">
+		<antcall target="clean" />
+		<antcall target="compile" />
+		<antcall target="create_uncompressed_directory" />
+		<antcall target="create_deployed_directory" />
+	</target>
+
+</project>
